@@ -16,12 +16,10 @@ class Game:
         game_word = random.choice(word_list) 
         game_word = str(game_word)
         game_word = game_word.lower()
-        print(game_word)
         game_word_len = len(game_word)
         game_word_letters = list(game_word)
-        print("Will be hidden eventually:")
-        print (game_word_letters) #This is a list still and will be deleted
         underscore_list = ["_"] * game_word_len
+        guess_list = []
         print ("")
         print ("Your word has " f'{game_word_len}' " fucking letters:")
         print ("")
@@ -33,8 +31,9 @@ class Game:
                 choice = input("Please guess a fucking letter: ")
                 choice.lower()
                 if choice.isalpha() and len(choice)==1:
-                    if choice in underscore_list:
-                        print ("You have already chosen that letter.")
+                    #function to add all choices a third list to check if they've guessed it period.
+                    if choice in guess_list:
+                        print ("You have already guessed that fucking letter.")
                     elif choice in game_word_letters:
                         index_position_list = self.get_index_positions(game_word_letters,choice)
                         choice_list = len(index_position_list)*[choice,]
@@ -42,20 +41,19 @@ class Game:
                             underscore_list[index] = choice
                         print (self.list_to_string(underscore_list))
                         print ("YOU FUCKING GENIUS")
+                        guess_list.append(choice)
                     else:
                         self.player.number_of_turns_remaining -=1    
-                        print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " fucking turns remaining. Please fucking guess again.")
+                        print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " fucking turns remaining.")
+                        print ("")
+                        guess_list.append(choice)
                 else:
                     print("Please enter characters A-Z, and only one letter at a time.")
                 if self.player.number_of_turns_remaining == 0:
-                    self.start_over()
+                    self.start_over(game_word)
                 break
         playing = False
         self.start_over_win()
-            # if "_" in underscore_list:
-            #     return
-            # else:
-            #     self.start_over()
                 
     
     def get_index_positions(self, game_word_letters, choice):    
@@ -76,8 +74,8 @@ class Game:
         return (str1.join(underscore_list)) 
 
 
-    def start_over(self):
-        print ("You are out of fucking guesses.")
+    def start_over(self, game_word):
+        print ("You are out of fucking guesses.  The correct word was: " f'{game_word}')
         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
         play_again.lower()
         if play_again == "r":
@@ -226,3 +224,6 @@ Game().play_game()
                     # for index in index_position_list:
                     #     underscore_list[index_position_list[index-1]] = choice_list[index-1]
                     # print(underscore_list)
+
+# print("Will be hidden eventually:")
+#         print (game_word_letters) #This is a list still and will be deleted
