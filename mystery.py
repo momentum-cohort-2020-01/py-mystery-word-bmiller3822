@@ -9,51 +9,47 @@ class Game:
         with open('words.txt', 'r') as file:
             data = file.read()
         print("")
-        print ("Welcome to Word Fuckery, a word guessing game full of fuckery!")
-        print ("")
-        print ("Guess one fucking letter at a time until you've guessed the whole fucking word. You have 8 fucking turns.")
+        print ("Welcome to Word Mystery, a word guessing game full of mysterious fun!""\n")
+        print ("Guess one letter at a time until you've guessed the whole word. You have 8 turns.""\n")
         word_list = [word for word in data.split()] 
         game_word = random.choice(word_list) 
         game_word = str(game_word)
         game_word = game_word.lower()
+        print (game_word)
         game_word_len = len(game_word)
         game_word_letters = list(game_word)
         underscore_list = ["_"] * game_word_len
         guess_list = []
-        print ("")
-        print ("Your word has " f'{game_word_len}' " fucking letters:")
-        print ("")
-        print (self.list_to_string(underscore_list))
-        print("")
+        print ("Your word has " f'{game_word_len}' " letters:""\n")
+        print (self.list_to_string(underscore_list) + "\n")
         while "_" in underscore_list:
             playing = True       
             while playing:
-                choice = input("Please guess a fucking letter: ")
+                choice = input("Please guess a letter: ")
+                print("\n")
                 choice.lower()
                 if choice.isalpha() and len(choice)==1:
-                    #function to add all choices a third list to check if they've guessed it period.
                     if choice in guess_list:
-                        print ("You have already guessed that fucking letter.")
+                        print ("You have already guessed that letter.""\n")
                     elif choice in game_word_letters:
                         index_position_list = self.get_index_positions(game_word_letters,choice)
                         choice_list = len(index_position_list)*[choice,]
                         for (index, choice) in zip(index_position_list, choice_list):
                             underscore_list[index] = choice
                         print (self.list_to_string(underscore_list))
-                        print ("YOU FUCKING GENIUS")
+                        print ("YOU GENIUS!""\n")
                         guess_list.append(choice)
                     else:
                         self.player.number_of_turns_remaining -=1    
-                        print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " fucking turns remaining.")
-                        print ("")
+                        print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " turns remaining.""\n")
                         guess_list.append(choice)
                 else:
-                    print("Please enter characters A-Z, and only one letter at a time.")
+                    print("Please enter characters A-Z, and only one letter at a time.""\n")
                 if self.player.number_of_turns_remaining == 0:
                     self.start_over(game_word)
                 break
         playing = False
-        self.start_over_win()
+        self.start_over_win(game_word)
                 
     
     def get_index_positions(self, game_word_letters, choice):    
@@ -75,18 +71,18 @@ class Game:
 
 
     def start_over(self, game_word):
-        print ("You are out of fucking guesses.  The correct word was: " f'{game_word}')
+        print ("You are out of guesses.  The correct word was: " f'{game_word}' "\n")
         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
-        play_again.lower()
+        play_again = play_again.lower()
         if play_again == "r":
             Game().play_game()
         else:
             exit() 
 
-    def start_over_win(self):
-        print ("You fucking won you awesome mother fucker!")
-        play_again = input ("Press R to (R)estart.  Press fucking anything else to exit. ")
-        play_again.lower()
+    def start_over_win(self, game_word):
+        print ("Congratulations, you won!  You guessed " f'{game_word}' " correctly!" "\n")
+        play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+        play_again = play_again.lower()
         if play_again == "r":
             Game().play_game()
         else:
@@ -150,7 +146,7 @@ Game().play_game()
 #         with open('words.txt', 'r') as file:
 #             data = file.read()
 #         print("")
-#         print ("Welcome to Word Fuckery, a word guessing game full of fuckery!")
+#         print ("Welcome to Word Mystery, a word guessing game full of fun!")
 #         word_list = [word for word in data.split()] #Makes a list of all words
 #         game_word = random.choice(word_list) #Picks a random list item
 #         game_word = str(game_word)
