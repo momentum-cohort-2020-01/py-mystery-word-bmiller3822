@@ -11,7 +11,7 @@ class Game:
         print("\n")
         print ("Welcome to Word Mystery, a word guessing game full of mysterious fun!""\n")
         print ("Guess one letter at a time until you've guessed the whole word. You have 8 turns.""\n")
-        print ("(E)asy mode will provide words up to 6 letters.  (M)edium mode will provide words up to 8 letters.  (H)ard mode has no limits.""\n")
+        print ("(E)asy mode will provide words up to 6 letters.  (M)edium mode will provide words up to 8 letters.  (H)ard mode has no limits.""\n")  #(U)ltimate mode has Artificial Intelligence that will actively work aginst you."
         diff = input("Please choose a difficulty: ")
         diff = diff.lower()
         if diff == "e":
@@ -20,13 +20,14 @@ class Game:
             word_list = [word for word in data.split() if len(word)>6 and len(word)<9]
         elif diff == "h":
             word_list = [word for word in data.split() if len(word)>8]
+        #elif will go here for ultimate mode
         else:
-            print ("Please enter 'e', 'm', or 'h' to indicate difficulty.")
+            print ("Please enter 'e', 'm', 'h', or 'u' to indicate difficulty.")
             Game().play_game()
         game_word = random.choice(word_list) 
         game_word = str(game_word)
         game_word = game_word.lower()
-        print (game_word)
+        # print (game_word)
         game_word_len = len(game_word)
         game_word_letters = list(game_word)
         underscore_list = ["_"] * game_word_len
@@ -312,6 +313,357 @@ Game().play_game()
 #         return (str1.join(underscore_list)) 
 
 
+#     def start_over(self, game_word):
+#         print ("You are out of guesses.  The correct word was: " f'{game_word}' "\n")
+#         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+#         play_again = play_again.lower()
+#         if play_again == "r":
+#             Game().play_game()
+#         else:
+#             exit() 
+
+#     def start_over_win(self, game_word):
+#         print ("Congratulations, you won!  You guessed " f'{game_word}' " correctly!" "\n")
+#         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+#         play_again = play_again.lower()
+#         if play_again == "r":
+#             Game().play_game()
+#         else:
+#             exit() 
+
+
+# class Player:
+#     def __init__(self, name):
+#         self.name = name
+#         self.number_of_turns_remaining = 8
+
+
+# game = Game()
+# Game().play_game()
+
+
+
+# This work with difficulty, now on to Evil mode!
+# import random
+
+# class Game:
+#     def __init__(self):
+#         self.player = Player("Brandon")
+
+
+#     def play_game(self):
+#         with open('words.txt', 'r') as file:
+#             data = file.read()
+#         print("\n")
+#         print ("Welcome to Word Mystery, a word guessing game full of mysterious fun!""\n")
+#         print ("Guess one letter at a time until you've guessed the whole word. You have 8 turns.""\n")
+#         print ("(E)asy mode will provide words up to 6 letters.  (M)edium mode will provide words up to 8 letters.  (H)ard mode has no limits.""\n")
+#         diff = input("Please choose a difficulty: ")
+#         diff = diff.lower()
+#         if diff == "e":
+#             word_list = [word for word in data.split() if len(word)<7]
+#         elif diff == "m":
+#             word_list = [word for word in data.split() if len(word)>6 and len(word)<9]
+#         elif diff == "h":
+#             word_list = [word for word in data.split() if len(word)>8]
+#         else:
+#             print ("Please enter 'e', 'm', or 'h' to indicate difficulty.")
+#             Game().play_game()
+#         game_word = random.choice(word_list) 
+#         game_word = str(game_word)
+#         game_word = game_word.lower()
+#         print (game_word)
+#         game_word_len = len(game_word)
+#         game_word_letters = list(game_word)
+#         underscore_list = ["_"] * game_word_len
+#         guess_list = []
+#         print ("Your word has " f'{game_word_len}' " letters:""\n")
+#         print (self.list_to_string(underscore_list) + "\n")
+#         while "_" in underscore_list:
+#             playing = True       
+#             while playing:
+#                 choice = input("Please guess a letter: ")
+#                 print("\n")
+#                 choice.lower()
+#                 if choice.isalpha() and len(choice)==1:
+#                     if choice in guess_list:
+#                         print ("You have already guessed that letter.""\n")
+#                     elif choice in game_word_letters:
+#                         index_position_list = self.get_index_positions(game_word_letters,choice)
+#                         choice_list = len(index_position_list)*[choice,]
+#                         for (index, choice) in zip(index_position_list, choice_list):
+#                             underscore_list[index] = choice
+#                         print (self.list_to_string(underscore_list))
+#                         print ("YOU GENIUS!""\n")
+#                         guess_list.append(choice)
+#                     else:
+#                         self.player.number_of_turns_remaining -=1    
+#                         print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " turns remaining.""\n")
+#                         guess_list.append(choice)
+#                 else:
+#                     print("Please enter characters A-Z, and only one letter at a time.""\n")
+#                 if self.player.number_of_turns_remaining == 0:
+#                     self.start_over(game_word)
+#                 break
+#         playing = False
+#         self.start_over_win(game_word)
+                
+    
+#     def get_index_positions(self, game_word_letters, choice):    
+#         index_pos_list = []
+#         index_pos = 0
+#         while True:
+#             try:
+#                 index_pos = game_word_letters.index(choice, index_pos)
+#                 index_pos_list.append(index_pos)
+#                 index_pos += 1
+#             except:
+#                 break
+#         return index_pos_list
+
+
+#     def list_to_string(self, underscore_list):  
+#         str1 = " "  
+#         return (str1.join(underscore_list)) 
+
+
+#     #This would be a good opportunity for inheritance.
+#     def start_over(self, game_word):
+#         print ("You are out of guesses.  The correct word was: " f'{game_word}' "\n")
+#         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+#         play_again = play_again.lower()
+#         if play_again == "r":
+#             Game().play_game()
+#         else:
+#             exit() 
+
+#     def start_over_win(self, game_word):
+#         print ("Congratulations, you won!  You guessed " f'{game_word}' " correctly!" "\n")
+#         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+#         play_again = play_again.lower()
+#         if play_again == "r":
+#             Game().play_game()
+#         else:
+#             exit() 
+
+
+# class Player:
+#     def __init__(self, name):
+#         self.name = name
+#         self.number_of_turns_remaining = 8
+
+
+# game = Game()
+# Game().play_game()
+
+
+# Saving before I attempt evil mode. 
+# import random
+
+# class Game:
+#     def __init__(self):
+#         self.player = Player("Brandon")
+
+
+#     def play_game(self):
+#         with open('words.txt', 'r') as file:
+#             data = file.read()
+#         print("\n")
+#         print ("Welcome to Word Mystery, a word guessing game full of mysterious fun!""\n")
+#         print ("Guess one letter at a time until you've guessed the whole word. You have 8 turns.""\n")
+#         print ("(E)asy mode will provide words up to 6 letters.  (M)edium mode will provide words up to 8 letters.  (H)ard mode has no limits.  (U)ltimate mode has Artificial Intelligence that will actively work aginst you.""\n")
+#         diff = input("Please choose a difficulty: ")
+#         diff = diff.lower()
+#         if diff == "e":
+#             word_list = [word for word in data.split() if len(word)<7]
+#         elif diff == "m":
+#             word_list = [word for word in data.split() if len(word)>6 and len(word)<9]
+#         elif diff == "h":
+#             word_list = [word for word in data.split() if len(word)>8]
+        
+#         else:
+#             print ("Please enter 'e', 'm', 'h', or 'u' to indicate difficulty.")
+#             Game().play_game()
+#         game_word = random.choice(word_list) 
+#         game_word = str(game_word)
+#         game_word = game_word.lower()
+#         print (game_word)
+#         game_word_len = len(game_word)
+#         game_word_letters = list(game_word)
+#         underscore_list = ["_"] * game_word_len
+#         guess_list = []
+#         print ("Your word has " f'{game_word_len}' " letters:""\n")
+#         print (self.list_to_string(underscore_list) + "\n")
+#         while "_" in underscore_list:
+#             playing = True       
+#             while playing:
+#                 choice = input("Please guess a letter: ")
+#                 print("\n")
+#                 choice.lower()
+#                 if choice.isalpha() and len(choice)==1:
+#                     if choice in guess_list:
+#                         print ("You have already guessed that letter.""\n")
+#                     elif choice in game_word_letters:
+#                         index_position_list = self.get_index_positions(game_word_letters,choice)
+#                         choice_list = len(index_position_list)*[choice,]
+#                         for (index, choice) in zip(index_position_list, choice_list):
+#                             underscore_list[index] = choice
+#                         print (self.list_to_string(underscore_list))
+#                         print ("YOU GENIUS!""\n")
+#                         guess_list.append(choice)
+#                     else:
+#                         self.player.number_of_turns_remaining -=1    
+#                         print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " turns remaining.""\n")
+#                         guess_list.append(choice)
+#                 else:
+#                     print("Please enter characters A-Z, and only one letter at a time.""\n")
+#                 if self.player.number_of_turns_remaining == 0:
+#                     self.start_over(game_word)
+#                 break
+#         playing = False
+#         self.start_over_win(game_word)
+                
+    
+#     def get_index_positions(self, game_word_letters, choice):    
+#         index_pos_list = []
+#         index_pos = 0
+#         while True:
+#             try:
+#                 index_pos = game_word_letters.index(choice, index_pos)
+#                 index_pos_list.append(index_pos)
+#                 index_pos += 1
+#             except:
+#                 break
+#         return index_pos_list
+
+
+#     def list_to_string(self, underscore_list):  
+#         str1 = " "  
+#         return (str1.join(underscore_list)) 
+
+
+#     #This would be a good opportunity for inheritance.
+#     def start_over(self, game_word):
+#         print ("You are out of guesses.  The correct word was: " f'{game_word}' "\n")
+#         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+#         play_again = play_again.lower()
+#         if play_again == "r":
+#             Game().play_game()
+#         else:
+#             exit() 
+
+#     def start_over_win(self, game_word):
+#         print ("Congratulations, you won!  You guessed " f'{game_word}' " correctly!" "\n")
+#         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
+#         play_again = play_again.lower()
+#         if play_again == "r":
+#             Game().play_game()
+#         else:
+#             exit() 
+
+
+# class Player:
+#     def __init__(self, name):
+#         self.name = name
+#         self.number_of_turns_remaining = 8
+
+
+# game = Game()
+# Game().play_game()
+
+
+#First attempt at evil mode, reverting back to turn the assignment in:
+# import random
+
+# class Game:
+#     def __init__(self):
+#         self.player = Player("Brandon")
+
+
+#     def play_game(self, guess_list, underscore_list, game_word_letters, game_word):
+#         with open('words.txt', 'r') as file:
+#             data = file.read()
+#         print("\n")
+#         print ("Welcome to Word Mystery, a word guessing game full of mysterious fun!""\n")
+#         print ("Guess one letter at a time until you've guessed the whole word. You have 8 turns.""\n")
+#         print ("(E)asy mode will provide words up to 6 letters.  (M)edium mode will provide words up to 8 letters.  (H)ard mode has no limits.  (U)ltimate mode has Artificial Intelligence that will actively work aginst you.""\n")
+#         diff = input("Please choose a difficulty: ")
+#         diff = diff.lower()
+#         if diff == "e":
+#             word_list = [word for word in data.split() if len(word)<7]
+#         elif diff == "m":
+#             word_list = [word for word in data.split() if len(word)>6 and len(word)<9]
+#         elif diff == "h":
+#             word_list = [word for word in data.split() if len(word)>8]
+#         elif diff == "u":
+#             word_list = [word for word in data.split()]
+#         else:
+#             word_list = [word for word in data.split()]
+#             print ("Please enter 'e', 'm', 'h', or 'u' to indicate difficulty.")
+#             Game().play_game()
+#         self.word_transform(word_list)
+#         while "_" in underscore_list:
+#             playing = True       
+#             while playing:
+#                 choice = input("Please guess a letter: ")
+#                 print("\n")
+#                 choice.lower()
+#                 if choice.isalpha() and len(choice)==1:
+#                     if choice in guess_list:
+#                         print ("You have already guessed that letter.""\n")
+#                     elif choice in game_word_letters:
+#                         index_position_list = self.get_index_positions(game_word_letters,choice)
+#                         choice_list = len(index_position_list)*[choice,]
+#                         for (index, choice) in zip(index_position_list, choice_list):
+#                             underscore_list[index] = choice
+#                         print (self.list_to_string(underscore_list))
+#                         print ("YOU GENIUS!""\n")
+#                         guess_list.append(choice)
+#                     else:
+#                         self.player.number_of_turns_remaining -=1    
+#                         print ("That's incorrect.  You have " f'{self.player.number_of_turns_remaining}' " turns remaining.""\n")
+#                         guess_list.append(choice)
+#                 else:
+#                     print("Please enter characters A-Z, and only one letter at a time.""\n")
+#                 if self.player.number_of_turns_remaining == 0:
+#                     self.start_over(game_word)
+#                 break
+#         playing = False
+#         self.start_over_win(game_word)
+
+
+#     def word_transform(self, word_list):
+#         game_word = random.choice(word_list) 
+#         game_word = str(game_word)
+#         game_word = game_word.lower()
+#         print (game_word)
+#         game_word_len = len(game_word)
+#         game_word_letters = list(game_word)
+#         underscore_list = ["_"] * game_word_len
+#         guess_list = []
+#         print ("Your word has " f'{game_word_len}' " letters:""\n")
+#         print (self.list_to_string(underscore_list) + "\n")
+#         return guess_list, underscore_list, game_word_letters, game_word          
+    
+#     def get_index_positions(self, game_word_letters, choice):    
+#         index_pos_list = []
+#         index_pos = 0
+#         while True:
+#             try:
+#                 index_pos = game_word_letters.index(choice, index_pos)
+#                 index_pos_list.append(index_pos)
+#                 index_pos += 1
+#             except:
+#                 break
+#         return index_pos_list
+
+
+#     def list_to_string(self, underscore_list):  
+#         str1 = " "  
+#         return (str1.join(underscore_list)) 
+
+
+#     #This would be a good opportunity for inheritance.
 #     def start_over(self, game_word):
 #         print ("You are out of guesses.  The correct word was: " f'{game_word}' "\n")
 #         play_again = input ("Press R to (R)estart.  Press anything else to exit. ")
